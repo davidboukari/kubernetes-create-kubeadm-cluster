@@ -83,18 +83,6 @@ sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --apiserver-advertise-address
 sudo mkdir -p $HOME/.kube
 cp /etc/kubernetes/admin.conf $HOME/.kube/config
 
-
-# Install coredns
-#kubectl -n kube-system get po
-#NAME                                 READY   STATUS    RESTARTS   AGE
-#coredns-64897985d-b8m2q              0/1     Pending   0          8m10s
-#coredns-64897985d-lsv7b              0/1     Pending   0          8m10s
-#etcd-ubuntu2004                      1/1     Running   2          8m25s
-#kube-apiserver-ubuntu2004            1/1     Running   2          8m18s
-#kube-controller-manager-ubuntu2004   1/1     Running   2          8m23s
-#kube-proxy-d6p22                     1/1     Running   0          8m10s
-#kube-scheduler-ubuntu2004            1/1     Running   2          8m26s
-
 # Install network plugin
 kubectl get pods -n kube-system -o wide|grep -i weave
    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
