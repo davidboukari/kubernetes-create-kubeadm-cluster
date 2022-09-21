@@ -70,15 +70,19 @@ cat<<EOF>>/etc/docker/daemon.json
 EOF
 
 
-systemctl enable --now docker
-systemctl restart docker
+sudo systemctl enable --now docker
+sudo systemctl restart docker
 
-systemctl enable --now kubelet
-systemctl restart kubelet
+sudo systemctl enable --now kubelet
+sudo systemctl restart kubelet
 
 # Start the cluster
 ip=$(hostname -I|awk '{print $1}')
-kubeadm init --pod-network-cidr 10.244.0.0/16 --apiserver-advertise-address=$ip
+sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --apiserver-advertise-address=$ip
+
+sudo mkdir -p $HOME/.kube
+cp /etc/kubernetes/admin.conf $HOME/.kube/config
+
 
 # Install coredns
 #kubectl -n kube-system get po
@@ -92,10 +96,14 @@ kubeadm init --pod-network-cidr 10.244.0.0/16 --apiserver-advertise-address=$ip
 #kube-scheduler-ubuntu2004            1/1     Running   2          8m26s
 
 
+kubectl get pods -n kube-system -o wide|grep -i weave
+   kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+kubectl get pods -n kube-system -o wide|grep -i weave
+
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
 
-helm repo add coredns https://coredns.github.io/helm
-helm --namespace=kube-system install coredns coredns/coredns
+#helm repo add coredns https://coredns.github.io/helm
+#helm --namespace=kube-system install coredns coredns/coredns
 

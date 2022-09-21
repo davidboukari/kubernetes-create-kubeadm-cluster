@@ -4,6 +4,7 @@
 ```
 chmod +x install-master.sh
 ./install-master.sh master1 1.23.0-00
+
 ```
 
 * If you need a kubeadm token to create and print join command
@@ -19,7 +20,7 @@ chmod +x install-node.sh
 install-node.sh node1 1.23.0-00
 
 # Execute the command join from master
-Ex: kubeadm join 192.168.1.147:6443 --token gvlpbd.r3d9pt3nqhzzqizi \
+Ex: sudo kubeadm join 192.168.1.147:6443 --token gvlpbd.r3d9pt3nqhzzqizi \
 > --discovery-token-ca-cert-hash sha256:acd6323967d2f1f53e9dcb....
 ```
 

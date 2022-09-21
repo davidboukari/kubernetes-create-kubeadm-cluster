@@ -52,7 +52,7 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 sudo apt-get update
 #sudo apt-get install kubelet${VERSION} kubeadm${VERSION} kubectl${VERSION}
 #sudo apt-get upgrade kubelet${VERSION} kubeadm${VERSION} kubectl${VERSION}
-sudo apt-get install kubelet${VERSION} kubeadm${VERSION} kubectl${VERSION}
+sudo apt-get install -y kubelet${VERSION} kubeadm${VERSION} kubectl${VERSION}
 sudo apt-mark hold kubelet kubeadm kubectl
 
 
@@ -67,11 +67,11 @@ cat<<EOF>>/etc/docker/daemon.json
 EOF
 
 
-systemctl enable --now docker
-systemctl restart docker
+sudo systemctl enable --now docker
+sudo systemctl restart docker
 
-systemctl enable --now kubelet
-systemctl restart kubelet
+sudo systemctl enable --now kubelet
+sudo systemctl restart kubelet
 
 echo "Now execute the command done by the control plain like: kubeadm join 192.168.1.147:6443 --token mr3de5.gmpt79yds71yfqf0 --discovery-token-ca-cert-hash sha256:5b1cdddc1f14317a9917f074ac69afa85d2cffcba00886f60d7790fe405b4dfa"
 
