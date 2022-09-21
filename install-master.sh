@@ -39,7 +39,7 @@ echo 'source <(kubectl completion bash)' >>~/.bashrc
 swapoff -a
 
 # Install docker
-apt-get install -y docker
+apt-get install -y docker.io
 
 # Update the apt package index and install packages needed to use the Kubernetes apt repository:
 sudo apt-get update
