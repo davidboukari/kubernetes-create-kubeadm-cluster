@@ -5,7 +5,6 @@ function usage(){
   echo "ex: $0 master1 1.23.0-00"
 }
 
-
 if [  "$#" -lt 2 ];then
   usage
   exit 10
@@ -15,7 +14,6 @@ fi
 if [ "`id -u`" != "0" ];then
   sudo $0 $@
 fi
-
 
 HOSTNAME=$1
 echo $HOSTNAME > /etc/hostname
@@ -35,7 +33,7 @@ echo 'source <(kubectl completion bash)' >>~/.bashrc
 #echo 'alias k=kubectl' >>~/.bashrc
 #echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 
-
+# No swap
 swapoff -a
 
 # Install docker
@@ -58,7 +56,6 @@ sudo apt-get update
 sudo apt-get install -y kubelet${VERSION} kubeadm${VERSION} kubectl${VERSION}
 sudo apt-mark hold kubelet kubeadm kubectl
 
-
 # Reinstall docker.io
 apt-get install -y docker.io
 
@@ -68,7 +65,6 @@ cat<<EOF>>/etc/docker/daemon.json
   "exec-opts": ["native.cgroupdriver=systemd"]
 }
 EOF
-
 
 sudo systemctl enable --now docker
 sudo systemctl restart docker
@@ -92,8 +88,6 @@ kubectl get pods -n kube-system -o wide|grep -i weave
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
-
-
 
 #helm repo add coredns https://coredns.github.io/helm
 #helm --namespace=kube-system install coredns coredns/coredns
