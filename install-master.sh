@@ -32,8 +32,8 @@ echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 # Completion
 apt-get install -y  bash-completion
 echo 'source <(kubectl completion bash)' >>~/.bashrc
-echo 'alias k=kubectl' >>~/.bashrc
-echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
+#echo 'alias k=kubectl' >>~/.bashrc
+#echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 
 
 swapoff -a
