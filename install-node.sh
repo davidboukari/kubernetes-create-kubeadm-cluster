@@ -11,6 +11,11 @@ if [  "$#" -lt 2 ];then
   exit 10
 fi
 
+# Need Root Access
+if [ "`id -u`" != "0" ];then
+  sudo $0 $@
+fi
+
 
 HOSTNAME=$1
 echo $HOSTNAME > /etc/hostname
@@ -46,7 +51,8 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 # Update apt package index, install kubelet, kubeadm and kubectl, and pin their version:
 sudo apt-get update
 #sudo apt-get install kubelet${VERSION} kubeadm${VERSION} kubectl${VERSION}
-sudo apt-get upgrade kubelet${VERSION} kubeadm${VERSION} kubectl${VERSION}
+#sudo apt-get upgrade kubelet${VERSION} kubeadm${VERSION} kubectl${VERSION}
+sudo apt-get install kubelet${VERSION} kubeadm${VERSION} kubectl${VERSION}
 sudo apt-mark hold kubelet kubeadm kubectl
 
 
