@@ -95,7 +95,7 @@ cp /etc/kubernetes/admin.conf $HOME/.kube/config
 #kube-proxy-d6p22                     1/1     Running   0          8m10s
 #kube-scheduler-ubuntu2004            1/1     Running   2          8m26s
 
-
+# Install network plugin
 kubectl get pods -n kube-system -o wide|grep -i weave
    kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 kubectl get pods -n kube-system -o wide|grep -i weave
@@ -103,6 +103,8 @@ kubectl get pods -n kube-system -o wide|grep -i weave
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
+
+
 
 #helm repo add coredns https://coredns.github.io/helm
 #helm --namespace=kube-system install coredns coredns/coredns
