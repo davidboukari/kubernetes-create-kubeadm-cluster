@@ -39,6 +39,7 @@ echo 'source <(kubectl completion bash)' >>~/.bashrc
 
 # disable swap
 swapoff -a
+sed -i 's!^/swap!#/swap!g' /etc/fstab
 
 # Install docker
 apt-get install -y docker
